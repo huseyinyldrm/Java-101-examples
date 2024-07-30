@@ -1,34 +1,36 @@
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.HashMap;
 public class Main {
     public static void main(String[] args) {
         Scanner input=new Scanner(System.in);
-        System.out.print("Bir sayı giriniz:");
-        int number= input.nextInt();
-        int basNumber=0;
-        int tempNumber=number;
-        int basValue;
-        int result=0;
-        int basPow;
+        HashMap<Integer,Integer> frekanslar = new HashMap<>();
 
-        while (tempNumber!=0){
-            tempNumber/=10;
-            basNumber++;
+        int[] dizi=new int[10];
+        int[] uye=new int[dizi.length];
+
+        for(int i=0; i< dizi.length; i++){
+            System.out.print("Dizi Elemanini giriniz:");
+            uye[i]=input.nextInt();
         }
-        tempNumber=number;
-        while (tempNumber!=0){
-            basValue=tempNumber%10;
-            basPow=1;
-            for (int i=1; i<=basNumber; i++){
-                basPow*=basValue;
+        System.out.println("Dizinin siralanmis hali:\n");
+        Arrays.sort(uye);
+        System.out.println(Arrays.toString(uye));
+        System.out.println("Dizinin frekanslari:\n");
+
+        // dizideki elemanların frekanslarını hesapla
+        for(int eleman: uye){
+            if(frekanslar.containsKey(eleman)){
+                frekanslar.put(eleman, frekanslar.get(eleman)+1);
+            }else{
+                frekanslar.put(eleman,1);
             }
-            result+=basPow;
-            tempNumber/=10;
         }
-        if(result==number){
-            System.out.print(number+" sayisi bir Armstrong sayisidir.");
-        }
-        else {
-            System.out.print(number+" sayisi bir Armstrong sayisi degildir.");
+
+        // sonuçları ekrana yazdır
+
+        for(int eleman: frekanslar.keySet()){
+            System.out.println(eleman+" sayisi "+ frekanslar.get(eleman)+" kez tekrar edildi.");
         }
 
 
